@@ -1,12 +1,28 @@
-import React from 'react';
-import './Filters.css';
+import React from "react";
+import "./Filters.css";
 
-const Filters = () => (
-  <div className="Filters-row">
-    <select onChange={(event) => console.log(event.target.value)}>
-      <option value="All Products">All Products</option>
-    </select>
-  </div>
-);
+class Filters extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(e) {
+    this.props.onChange(e.target.value);
+  }
+
+  render() {
+    return (
+      <div className="Filters-row">
+        <select value={this.props.categoryId} onChange={this.handleChange}>
+          <option value={""}>All Products</option>
+          {this.props.categories.map((category) => (
+            <option value={category.categoryId}>{category.name}</option>
+          ))}
+        </select>
+      </div>
+    );
+  }
+}
 
 export default Filters;
